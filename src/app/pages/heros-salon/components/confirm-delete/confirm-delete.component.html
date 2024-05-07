@@ -1,1 +1,11 @@
-lkkklk
+<div class="container-confirm">
+  <h1>Estas seguro que deseas eliminar el siguiente heroe?</h1>
+  <div class="container-buttons">
+    <button mat-button color="primary" (click)="actionsDelete()">
+      Cancelar
+    </button>
+    <button mat-raised-button color="primary" (click)="actionsDelete('Delete')">
+      Eliminar
+    </button>
+  </div>
+</div>

@@ -12,6 +12,6 @@ export class AppComponent implements OnInit {
   private herosApi: HerosService = inject(HerosService);
 
   ngOnInit(): void {
-    this.herosApi.getHeros();
+    this.herosApi.getHeros().subscribe();
   }
 }

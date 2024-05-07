@@ -1,30 +1,34 @@
 <div class="container-all">
-  <button mat-flat-button color="primary" (click)="openFormDialog('add')">
-    Add new Hero
-  </button>
-  <h2>Select type of search:</h2>
-  <mat-radio-group (change)="onChangeRadioGroup($event)" [(ngModel)]="hero">
-    <mat-radio-button value="id">Id</mat-radio-button>
-    <mat-radio-button value="hero">Hero Name</mat-radio-button>
-  </mat-radio-group>
-  <mat-form-field>
-    <mat-label>Search by id or Name</mat-label>
-    <input
-      matInput
-      type="text"
-      [formControl]="searchHero"
-      placeholder="Search your hero"
-    />
-    <button
-      *ngIf="showSearchButton()"
-      (click)="filterHeros()"
-      matSuffix
-      mat-icon-button
-      aria-label="Clear"
-    >
-      <mat-icon>search</mat-icon>
-    </button>
-  </mat-form-field>
+  <div class="filter-container">
+    <div class="filter-container-radiobtn">
+      <h2 class="filter-container-radiobtn-text">
+        Selecciona el filtro de busqueda:
+      </h2>
+      <mat-radio-group (change)="onChangeRadioGroup($event)" [(ngModel)]="hero">
+        <mat-radio-button value="id">Id del heroe</mat-radio-button>
+        <mat-radio-button value="hero">Nombre del heroe</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <mat-form-field class="form-field">
+      <mat-label>Encuentra tu heroe :D </mat-label>
+      <input
+        matInput
+        type="text"
+        [formControl]="searchHero"
+        placeholder="A buscar!!"
+      />
+      <button
+        *ngIf="showSearchButton()"
+        (click)="filterHeros()"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+      >
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
   <div class="container-cards">
     <div *ngFor="let hero of herosInfo()">
       <mat-card class="card">
@@ -40,10 +44,14 @@
                 color="primary"
                 (click)="openFormDialog('edit', hero)"
               >
-                Edit
+                Editar
               </button>
-              <button mat-flat-button color="warn" (click)="onDeleteHero(hero)">
-                Delete
+              <button
+                mat-flat-button
+                color="warn"
+                (click)="openDeleteDialog(hero)"
+              >
+                Eliminar
               </button>
             </div>
           </div>
@@ -51,9 +59,11 @@
       </mat-card>
     </div>
   </div>
-  <mat-paginator
-    [length]="herosLength"
-    [pageSize]="4"
-    (page)="pageEvent($event)"
-  ></mat-paginator>
+  <div class="paginator">
+    <mat-paginator
+      [length]="herosLength"
+      [pageSize]="4"
+      (page)="pageEvent($event)"
+    ></mat-paginator>
+  </div>
 </div>

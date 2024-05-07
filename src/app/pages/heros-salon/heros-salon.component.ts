@@ -1,14 +1,15 @@
-import { Component, OnInit, inject, signal } from "@angular/core";
-import { FormControl, Validators } from "@angular/forms";
-import { MatDialog } from "@angular/material/dialog";
-import { filter, first, take } from "rxjs";
-import { HerosService } from "src/app/@shared/services/heros.service";
-import { HeroFormComponent } from "./components/hero-form/hero-form.component";
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { filter, first, take } from 'rxjs';
+import { HerosService } from 'src/app/@shared/services/heros.service';
+import { HeroFormComponent } from './components/hero-form/hero-form.component';
+import { ConfirmDeleteComponent } from './components/confirm-delete/confirm-delete.component';
 
 @Component({
-  selector: "app-heros-salon",
-  templateUrl: "./heros-salon.component.html",
-  styleUrls: ["./heros-salon.component.scss"],
+  selector: 'app-heros-salon',
+  templateUrl: './heros-salon.component.html',
+  styleUrls: ['./heros-salon.component.scss'],
 })
 export class HerosSalonComponent implements OnInit {
   private heroService: HerosService = inject(HerosService);
@@ -17,15 +18,20 @@ export class HerosSalonComponent implements OnInit {
   herosInfo = signal<any[]>([]);
   herosInfoAux = signal<any[]>([]);
   searchByHero = signal<boolean>(true);
-  searchHero = new FormControl("", Validators.minLength(3));
-  randomDesc = "This is a random description, where you can modify";
+  searchHero = new FormControl('', Validators.minLength(3));
+  randomDesc = 'This is a random description, where you can modify';
   showSearchButton = signal<boolean>(false);
-  hero = "hero";
+  hero = 'hero';
   herosLength = 0;
   lastIndex = 0;
 
   ngOnInit(): void {
     this.initHeroData();
+    this.heroService.addHero$.subscribe((data) => {
+      if (data) {
+        this.openFormDialog('add');
+      }
+    });
     this.searchHero.valueChanges.subscribe((search: any) => {
       const lengthToSearch = this.searchByHero() ? 3 : 7;
       this.searchHero.setValidators(Validators.minLength(lengthToSearch));
@@ -73,7 +79,7 @@ export class HerosSalonComponent implements OnInit {
   }
 
   onChangeRadioGroup(event: any): void {
-    this.searchByHero.set(event.value === "hero");
+    this.searchByHero.set(event.value === 'hero');
     this.showSearchButton.set(false);
   }
 
@@ -97,12 +103,21 @@ export class HerosSalonComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result?.event === "edit") {
+      if (result?.event === 'edit') {
         this.editHeroes(result, heroIdAux);
       } else {
-        if (result?.event === "add") {
+        if (result?.event === 'add') {
           this.addHeroe(result.data);
         }
+      }
+    });
+  }
+
+  openDeleteDialog(hero: any): void {
+    const dialogRef = this.dialogService.open(ConfirmDeleteComponent);
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data.event === 'delete') {
+        this.onDeleteHero(hero);
       }
     });
   }
