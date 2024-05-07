@@ -1,0 +1,59 @@
+<div class="container-all">
+  <button mat-flat-button color="primary" (click)="openFormDialog('add')">
+    Add new Hero
+  </button>
+  <h2>Select type of search:</h2>
+  <mat-radio-group (change)="onChangeRadioGroup($event)" [(ngModel)]="hero">
+    <mat-radio-button value="id">Id</mat-radio-button>
+    <mat-radio-button value="hero">Hero Name</mat-radio-button>
+  </mat-radio-group>
+  <mat-form-field>
+    <mat-label>Search by id or Name</mat-label>
+    <input
+      matInput
+      type="text"
+      [formControl]="searchHero"
+      placeholder="Search your hero"
+    />
+    <button
+      *ngIf="showSearchButton()"
+      (click)="filterHeros()"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+    >
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+  <div class="container-cards">
+    <div *ngFor="let hero of herosInfo()">
+      <mat-card class="card">
+        <mat-card-content>
+          <img class="img-hero" [src]="hero.photo" />
+          <div class="desc-container">
+            <h1 class="title">{{ hero.name }}</h1>
+            <p>id: {{ hero.id }}</p>
+            <p class="description">{{ hero.description }}</p>
+            <div class="button-card-container">
+              <button
+                mat-flat-button
+                color="primary"
+                (click)="openFormDialog('edit', hero)"
+              >
+                Edit
+              </button>
+              <button mat-flat-button color="warn" (click)="onDeleteHero(hero)">
+                Delete
+              </button>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <mat-paginator
+    [length]="herosLength"
+    [pageSize]="4"
+    (page)="pageEvent($event)"
+  ></mat-paginator>
+</div>

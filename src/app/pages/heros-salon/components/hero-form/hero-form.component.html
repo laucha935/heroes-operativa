@@ -1,0 +1,43 @@
+<div class="container">
+  <h1>Complete Hero information</h1>
+  <form class="form-container" [formGroup]="heroInfoForm">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input
+        formControlName="heroName"
+        matInput
+        type="text"
+        placeholder="Set hero name"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Id</mat-label>
+      <input
+        formControlName="heroId"
+        matInput
+        type="text"
+        placeholder="Set hero id"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <input
+        formControlName="heroDescription"
+        matInput
+        type="text"
+        placeholder="Set hero description"
+      />
+    </mat-form-field>
+  </form>
+  <button mat-button color="primary" (click)="actionsForm('cancel')">
+    Cancel
+  </button>
+  <button
+    [disabled]="!heroInfoForm.valid"
+    mat-raised-button
+    color="primary"
+    (click)="actionsForm()"
+  >
+    Accept
+  </button>
+</div>
