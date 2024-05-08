@@ -41,7 +41,7 @@ export class HerosSalonComponent implements OnInit, OnDestroy {
   herosLength = 0;
   lastIndex = 0;
   private subscription = new Subscription();
-
+  isLoading = true;
   /* =================================================
                 Lifecicles
 ================================================= */
@@ -80,13 +80,14 @@ export class HerosSalonComponent implements OnInit, OnDestroy {
           this.herosInfo.set(
             data.map((elem: any) => {
               return {
-                name: elem.name,
+                name: elem.name.toUpperCase(),
                 description: elem?.description || this.randomDesc,
                 photo: `${elem.thumbnail.path}.${elem.thumbnail.extension}`,
                 id: elem.id,
               };
             })
           );
+          this.isLoading = false;
           this.herosLength = this.herosInfo().length;
           this.herosInfoAux.set(this.herosInfo());
           this.herosInfo.set(this.herosInfoAux().slice(0, 4));
@@ -191,7 +192,7 @@ export class HerosSalonComponent implements OnInit, OnDestroy {
     const heroInf = this.herosInfo()[index];
     this.herosInfoAux()[index] = {
       ...this.herosInfo()[index],
-      name: form?.heroName || heroInf.name,
+      name: form?.heroName.toUpperCase() || heroInf.name.toUpperCase(),
       description: form?.heroDescription || heroInf.description,
       id: form?.heroId || heroInf.id,
       photo: form?.heroPhoto || `${heroInf.photo}`,
@@ -203,7 +204,7 @@ export class HerosSalonComponent implements OnInit, OnDestroy {
     const url: string = newHero.heroPhoto;
     this.herosInfoAux.update((heroElem: any[]) => {
       const hero = {
-        name: newHero.heroName,
+        name: newHero.heroName.toUpperCase(),
         description: newHero.heroDescription,
         id: newHero.heroId,
         photo: url,

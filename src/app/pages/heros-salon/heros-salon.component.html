@@ -1,5 +1,10 @@
 <div class="container-all">
-  <div class="filter-container">
+  <div class="loading" *ngIf="isLoading">
+    <div class="rueda"></div>
+    <p>Cargando...</p>
+  </div>
+
+  <div class="filter-container" *ngIf="!isLoading">
     <div class="filter-container-radiobtn">
       <h2 class="filter-container-radiobtn-text">
         Selecciona el filtro de busqueda:
