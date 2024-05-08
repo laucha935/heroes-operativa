@@ -1,13 +1,13 @@
 <div class="container">
-  <h1>Complete Hero information</h1>
+  <h1 class="title-modal">Completa la informacion del super heroe</h1>
   <form class="form-container" [formGroup]="heroInfoForm">
     <mat-form-field>
-      <mat-label>Name</mat-label>
+      <mat-label>Nombre</mat-label>
       <input
         formControlName="heroName"
         matInput
         type="text"
-        placeholder="Set hero name"
+        placeholder="Ingresa el nombre"
       />
     </mat-form-field>
     <mat-form-field>
@@ -16,28 +16,39 @@
         formControlName="heroId"
         matInput
         type="text"
-        placeholder="Set hero id"
+        placeholder="Ingresa el Id"
       />
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Description</mat-label>
-      <input
+      <mat-label>Descripcion:</mat-label>
+      <textarea
         formControlName="heroDescription"
         matInput
         type="text"
-        placeholder="Set hero description"
-      />
+        placeholder="Ingresa la descripcion del heroe"
+      ></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Url foto del heroe (https y sin comillas):</mat-label>
+      <textarea
+        formControlName="heroPhoto"
+        matInput
+        type="text"
+        placeholder="Ingresa la url de la foto del heroe"
+      ></textarea>
     </mat-form-field>
   </form>
-  <button mat-button color="primary" (click)="actionsForm('cancel')">
-    Cancel
-  </button>
-  <button
-    [disabled]="!heroInfoForm.valid"
-    mat-raised-button
-    color="primary"
-    (click)="actionsForm()"
-  >
-    Accept
-  </button>
+  <div class="container-button">
+    <button mat-button color="primary" (click)="actionsForm('cancel')">
+      Cancel
+    </button>
+    <button
+      [disabled]="!heroInfoForm.valid"
+      mat-raised-button
+      color="primary"
+      (click)="actionsForm()"
+    >
+      Accept
+    </button>
+  </div>
 </div>

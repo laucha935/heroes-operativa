@@ -1,0 +1,16 @@
+.container-confirm {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  height: 130px;
+
+  &-text {
+    font-family: monospace;
+    font-size: 16px;
+  }
+
+  &-buttons {
+    display: flex;
+    justify-content: space-around;
+  }
+}

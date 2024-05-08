@@ -1,4 +1,11 @@
+/* =================================================
+  Angular and rxjs
+================================================= */
 import { Component, inject } from '@angular/core';
+
+/* =================================================
+  Services
+================================================= */
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -7,8 +14,12 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./confirm-delete.component.scss'],
 })
 export class ConfirmDeleteComponent {
+  /* services */
   private dialogService = inject(MatDialogRef);
 
+  /* =================================================
+  Functions
+================================================= */
   actionsDelete(option?: string): void {
     if (option) {
       this.dialogService.close({

@@ -1,0 +1,22 @@
+<mat-card class="card">
+  <mat-card-content>
+    <img class="img-hero" [src]="hero.photo" />
+    <div class="desc-container">
+      <h1 class="title">{{ hero.name }}</h1>
+      <p>id: {{ hero.id }}</p>
+      <p class="description">{{ hero.description }}</p>
+      <div class="button-card-container">
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="onClickButton(hero, 'edit')"
+        >
+          Editar
+        </button>
+        <button mat-flat-button color="warn" (click)="onClickButton(hero)">
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

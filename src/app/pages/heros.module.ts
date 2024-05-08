@@ -13,6 +13,7 @@ import { HeroFormComponent } from './heros-salon/components/hero-form/hero-form.
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ConfirmDeleteComponent } from './heros-salon/components/confirm-delete/confirm-delete.component';
+import { HeroCardComponent } from './heros-salon/components/hero-card/hero-card.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,11 @@ import { ConfirmDeleteComponent } from './heros-salon/components/confirm-delete/
     MatDialogModule,
     MatPaginatorModule,
   ],
-  declarations: [HerosSalonComponent, HeroFormComponent, ConfirmDeleteComponent],
+  declarations: [
+    HerosSalonComponent,
+    HeroFormComponent,
+    ConfirmDeleteComponent,
+    HeroCardComponent,
+  ],
 })
 export class HerosModule {}

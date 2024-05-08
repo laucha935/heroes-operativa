@@ -29,34 +29,12 @@
       </button>
     </mat-form-field>
   </div>
-  <div class="container-cards">
+  <div class="container-cards" *ngIf="herosInfo().length > 0; else nada">
     <div *ngFor="let hero of herosInfo()">
-      <mat-card class="card">
-        <mat-card-content>
-          <img class="img-hero" [src]="hero.photo" />
-          <div class="desc-container">
-            <h1 class="title">{{ hero.name }}</h1>
-            <p>id: {{ hero.id }}</p>
-            <p class="description">{{ hero.description }}</p>
-            <div class="button-card-container">
-              <button
-                mat-flat-button
-                color="primary"
-                (click)="openFormDialog('edit', hero)"
-              >
-                Editar
-              </button>
-              <button
-                mat-flat-button
-                color="warn"
-                (click)="openDeleteDialog(hero)"
-              >
-                Eliminar
-              </button>
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
+      <app-hero-card
+        [hero]="hero"
+        (clickEvent)="onEmitterHeroCard($event)"
+      ></app-hero-card>
     </div>
   </div>
   <div class="paginator">
@@ -67,3 +45,7 @@
     ></mat-paginator>
   </div>
 </div>
+
+<ng-template #nada>
+  <div class="nothing-template">Ooops.... Nada por aqui! :()</div>
+</ng-template>

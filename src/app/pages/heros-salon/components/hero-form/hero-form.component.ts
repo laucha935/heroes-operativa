@@ -1,5 +1,12 @@
+/* =================================================
+  Angular and Rxjs
+================================================= */
 import { Component, Inject, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+/* =================================================
+  Services
+================================================= */
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -11,7 +18,11 @@ export class HeroFormComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { type: string; heroeInfo: any }
   ) {}
+
+  /* Services */
   private dialogService: MatDialogRef<HeroFormComponent> = inject(MatDialogRef);
+
+  /* Forms */
 
   heroInfoForm = new FormGroup({
     heroName: new FormControl('', [
@@ -23,8 +34,15 @@ export class HeroFormComponent implements OnInit {
       Validators.required,
       Validators.minLength(3),
     ]),
+    heroPhoto: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+    ]),
   });
 
+  /* =================================================
+  Hooks
+================================================= */
   ngOnInit(): void {
     if (this.data.type === 'edit') {
       this.heroInfoForm.controls['heroName'].setValue(this.data.heroeInfo.name),
@@ -32,8 +50,15 @@ export class HeroFormComponent implements OnInit {
         this.heroInfoForm.controls['heroDescription'].setValue(
           this.data.heroeInfo.description
         );
+      this.heroInfoForm.controls['heroPhoto'].setValue(
+        this.data?.heroeInfo?.photo
+      );
     }
   }
+
+  /* =================================================
+  Action Form
+================================================= */
 
   actionsForm(option?: string): void {
     if (option) {
